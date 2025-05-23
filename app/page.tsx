@@ -1,9 +1,10 @@
-import Image from "next/image";
+
+import Header from "./components/section/header";
 
 export default function Home() {
   return (
-    <div className="w-full h-screen relative">
-      <Image src="/under.png" alt="under-construction" fill objectFit="contain" priority={true} />
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
