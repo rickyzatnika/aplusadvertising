@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import MobileNavbar from './mobile'
 
 const Navbar = () => {
   return (
@@ -9,7 +10,7 @@ const Navbar = () => {
       <Link href="/">
         <Image src="/logo.png" alt='logo-aplusadvertising' priority={true} width={150} height={100} />
       </Link>
-      <ul className='flex items-center justify-center gap-8'>
+      <ul className='hidden md:flex items-center justify-center gap-8'>
         <li>
           <Link href="">Home</Link>
         </li>
@@ -23,6 +24,8 @@ const Navbar = () => {
           <Link href="">Contact</Link>
         </li>
       </ul>
+      {/* Mobile Navbar */}
+      <MobileNavbar />
     </nav>
 
   )

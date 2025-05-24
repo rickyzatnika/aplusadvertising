@@ -4,10 +4,10 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div className='w-full h-full flex items-center justify-between gap-8 py-4 px-4 md:px-24 lg:px-32 relative'>
+    <div className='w-full h-full flex flex-col md:flex-row items-center justify-between gap-8 py-8 px-4 md:px-24 lg:px-32 relative'>
       <div className='absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-tr from-[#000000] to-transparent ' />
       <div className=' flex flex-col gap-4'>
-        <h1 className='text-white text-7xl font-bold'>APLUS ADVERTISING</h1>
+        <h1 className='text-white text-3xl md:text-5xl lg:text-7xl font-bold'>APLUS ADVERTISING</h1>
         <p className='text-white/70 text-xl '>adalah perusahaan yang
           bergerak di bidang periklanan dan komunikasi
           visual, hadir untuk membantu brand Anda tampil
