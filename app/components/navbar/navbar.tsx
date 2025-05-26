@@ -13,16 +13,16 @@ const Navbar = () => {
       </Link>
       <ul className='hidden md:flex uppercase items-center justify-center gap-8 text-md font-semibold text-[#0E121D]'>
         <li>
-          <Link href="">Home</Link>
+          <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="">About Us</Link>
+          <Link href="/about">About Us</Link>
         </li>
         <li>
-          <Link href="">Catalog</Link>
+          <Link href="/catalog">Catalog</Link>
         </li>
         <li>
-          <Link href="">
+          <Link href="/contact">
             <Button className='bg-[#faa51b] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Contact</Button>
           </Link>
         </li>

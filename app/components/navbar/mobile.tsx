@@ -19,16 +19,16 @@ const MobileNavbar = () => {
           </SheetHeader>
           <ul className='flex flex-col items-start pt-24 justify-center gap-8'>
             <li className='text-2xl font-bold pl-5'>
-              <Link href="">Home</Link>
+              <Link href="/">Home</Link>
             </li>
             <li className='text-2xl font-bold pl-5'>
-              <Link href="">About Us</Link>
+              <Link href="/about">About Us</Link>
             </li>
             <li className='text-2xl font-bold pl-5'>
-              <Link href="">Catalog</Link>
+              <Link href="/catalog">Catalog</Link>
             </li>
             <li className='text-2xl font-bold pl-5'>
-              <Link href="">Contact</Link>
+              <Link href="/contact">Contact</Link>
             </li>
           </ul>
           <SheetFooter>
