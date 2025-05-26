@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Header = () => {
@@ -13,8 +14,8 @@ const Header = () => {
           visual, hadir untuk membantu brand Anda tampil
           menonjol di tengah persaingan pasar yang
           semakin dinamis.</p>
-        <Button variant='outline' size="lg" className='bg-white/90 text-black hover:bg-white/80 mt-4 w-fit text-lg'>
-          <a href="https://wa.me/6281212345678" target='_blank'>Contact Us</a>
+        <Button variant='outline' size="lg" className='bg-[#faa51b] text-black hover:bg-[#faa51b]/50 mt-4 w-fit outline-none border-none text-lg'>
+          <Link href="https://wa.me/6281212345678" target='_blank'>Contact Us</Link>
         </Button>
       </div>
       <div className='w-full'>
