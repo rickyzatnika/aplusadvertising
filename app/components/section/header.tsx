@@ -14,7 +14,7 @@ const Header = () => {
           <Link href="https://wa.me/6281212345678" target='_blank'>About Us</Link>
         </Button>
       </div>
-      <div className='w-96 md:w-[800px] lg:w-[800px] h-auto flex items-center justify-center'>
+      <div className='w-full md:w-[1200px] lg:w-[800px] h-auto flex items-center justify-center'>
         <Image src="/hero.png" alt='aplusadv-image' priority={true} width={800} height={475} className='w-full scale-90 object-contain' />
       </div>
     </div>
