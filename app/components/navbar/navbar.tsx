@@ -23,7 +23,7 @@ const Navbar = () => {
         </li>
         <li>
           <Link href="/contact">
-            <Button className='bg-[#faa51b] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Contact</Button>
+            <Button className='bg-[#ffbd2d] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Contact</Button>
           </Link>
         </li>
       </ul>
