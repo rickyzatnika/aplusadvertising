@@ -10,7 +10,7 @@ const AboutUs = () => {
         <Image src="/kotak.png" alt="about-us" priority={true} width={300} height={100} />
       </div>
       <div className='w-full h-full flex flex-col items-center justify-center gap-4 py-8 md:py-16 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40 relative'>
-        <div className='w-full flex flex-col md:flex-row gap-4 lg:gap-8 item-center md:item-start justify-between'>
+        <div className='w-full flex flex-col md:flex-row gap-0 lg:gap-8 item-center md:item-start justify-between'>
           <div className=' w-full h-screen flex flex-col items-start justify-evenly'>
             <div className='flex flex-col gap-2'>
               <p className='text-white text-md font-bold'>Innovate</p>
@@ -38,11 +38,9 @@ const AboutUs = () => {
             </div>
             <div className='flex items-center gap-8 '>
               <Link href="/contact">
-                <Button className='bg-[#ffbd2d] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Hubungi Kami</Button>
+                <Button className='bg-[#ffbd2d] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>About Us</Button>
               </Link>
-              <Link className='outline rounded-md text-white px-3 py-1.5' href="/about">
-                About Us
-              </Link>
+
             </div>
           </div>
           <div className='w-full h-full'>
