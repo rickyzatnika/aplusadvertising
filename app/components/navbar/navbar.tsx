@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button'
 const Navbar = () => {
   return (
 
-    <nav className='w-full flex items-center justify-between h-24 px-4 md:px-14 bg-white/90 backdrop-blur-md '>
+    <nav className='w-full flex items-center justify-between h-20 lg:h-24 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40 bg-white/90  '>
       <Link href="/">
         <Image src="/logo.png" alt='logo-aplusadvertising' priority={true} width={150} height={100} />
       </Link>
-      <ul className='hidden md:flex uppercase items-center justify-center gap-8 text-md font-semibold text-[#0E121D]'>
+      <ul className='hidden lg:flex uppercase items-center justify-center gap-8 text-md font-semibold text-[#0E121D]'>
         <li>
           <Link href="/">Home</Link>
         </li>

@@ -27,7 +27,7 @@ export default function RootLayout({
         className={`${sen.variable}  antialiased`}
       >
         <Navbar />
-        <div className="px-4 md:px-24 lg:px-32 xl:px-40">
+        <div className="">
           {children}
         </div>
         <Footer />
