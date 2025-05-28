@@ -24,7 +24,7 @@ const OurServices = () => {
         <div className='w-full flex flex-col lg:flex-row gap-8 items-center justify-between py-12 '>
           {
             services.map((service, index) => (
-              <div key={index} className='w-full h-72  flex flex-col gap-4 bg-[#f7a619] rounded-lg p-4 md:p-8'>
+              <div key={index} className='w-full h-72  flex flex-col gap-4 bg-[#f7a619] shadow-lg rounded-lg p-4 md:p-8'>
                 <Image src={service.icon} alt="icons" priority={true} width={40} height={40} />
                 <h2 className=' text-3xl font-semibold'>{service.title}</h2>
                 <p className=' text-md leading-relaxed'>{service.desc}</p>
