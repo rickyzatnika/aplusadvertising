@@ -4,14 +4,14 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='bg-white w-full py-8 px-4'>
+    <div className='bg-white w-full h-full py-8 px-4'>
       <div className='w-full flex items-center justify-center '>
-        <div className='border-b-2 border-accent-foreground w-full px-4 flex flex-col lg:flex-row items-center justify-center py-8 gap-12 space-y-4 lg:gap-0'>
+        <div className='border-b-2 border-accent-foreground w-full px-4 flex flex-col lg:flex-row items-center justify-center  gap-12 py-8 lg:gap-0'>
           <div className='w-fit lg:w-full'>
             <Image src="/logo.png" alt="logo-aplus-adv" priority={true} width={150} height={150} />
           </div>
 
-          <ul className='flex flex-col font-bold lg:flex-row uppercase w-full items-center justify-center gap-6 lg:gap-8 text-md  text-[#0E121D]'>
+          <ul className='w-full flex flex-col font-bold lg:flex-row uppercase items-center justify-center gap-6 lg:gap-8 text-md  text-[#0E121D]'>
             <li>
               <Link href="/">Home</Link>
             </li>
@@ -27,7 +27,7 @@ const Footer = () => {
               </Link>
             </li>
           </ul>
-          <div className='w-full flex items-center justify-center gap-4'>
+          <div className='w-full flex items-center justify-center lg:justify-end gap-4'>
             <Link href="https://www.instagram.com/aplusadvertising/" target="_blank">
               <Image src="/instagram.png" alt="instagram" priority={true} width={30} height={30} />
             </Link>
@@ -35,7 +35,10 @@ const Footer = () => {
               <Image src="/facebook.png" alt="facebook" priority={true} width={30} height={30} />
             </Link>
             <Link href="https://www.linkedin.com/company/aplusadvertising/" target="_blank">
-              <Image src="/linkedin.png" alt="linkedin" priority={true} width={30} height={30} />
+              <Image src="/tiktok.png" alt="linkedin" priority={true} width={30} height={30} />
+            </Link>
+            <Link href="https://www.youtube.com/company/aplusadvertising/" target="_blank">
+              <Image src="/youtube.png" alt="linkedin" priority={true} width={30} height={30} />
             </Link>
           </div>
         </div>

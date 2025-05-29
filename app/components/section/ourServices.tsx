@@ -1,5 +1,7 @@
 import { services } from '@/lib/data'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 
@@ -32,6 +34,9 @@ const OurServices = () => {
             ))
           }
         </div>
+        <Link href="/catalog" className=' px-6 py-3 border text-[#0E121D] border-[#0E121D]  font-semibold rounded-lg hover:bg-[#f7a619] hover:border-[#f7a619] hover:shadow-lg hover:text-white transition-colors duration-300 flex items-center justify-center mx-auto mt-8'>
+          Explore Our Catalog
+        </Link>
       </div>
 
     </div>

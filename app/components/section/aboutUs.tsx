@@ -14,8 +14,8 @@ const AboutUs = () => {
           <div className=' w-full h-screen flex flex-col items-start justify-evenly'>
             <div className='flex flex-col gap-2'>
               <p className='text-white text-md font-bold'>Innovate</p>
-              <h1 className='text-white text-4xl md:text-5xl lg:text-7xl font-semibold  relative z-10'>About Us </h1>
-              <p className='text-white text-md'> APlus Advertising adalah perusahaan yang
+              <h1 className='text-white text-4xl md:text-5xl lg:text-7xl font-semibold  relative z-10 mb-3'>About Us </h1>
+              <p className='text-white text-md'> <span className='font-bold'>Aplus Advertising</span> adalah perusahaan yang
                 bergerak di bidang periklanan dan komunikasi
                 visual, hadir untuk membantu brand Anda tampil
                 menonjol di tengah persaingan pasar yang

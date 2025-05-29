@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import MobileNavbar from './mobile'
-import { Button } from '@/components/ui/button'
 
 const Navbar = () => {
   return (
@@ -23,10 +22,14 @@ const Navbar = () => {
         </li>
         <li>
           <Link href="/contact">
-            <Button className='bg-[#ffbd2d] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Contact</Button>
+            Contact
           </Link>
         </li>
       </ul>
+      {/* Whatsapp Button */}
+      <Link href="https://wa.me/6281234567890" target="_blank" className=' bg-[#25D366] text-white px-4 py-2 rounded-lg hover:bg-[#128C7E] transition-colors duration-300'>
+        <button className=''>Chat On Whatsapp</button>
+      </Link>
       {/* Mobile Navbar */}
       <MobileNavbar />
     </nav>
