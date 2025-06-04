@@ -27,8 +27,8 @@ const Navbar = () => {
         </li>
       </ul>
       {/* Whatsapp Button */}
-      <Link href="https://wa.me/6281234567890" target="_blank" className=' bg-[#25D366] text-white px-4 py-2 rounded-lg hover:bg-[#128C7E] transition-colors duration-300'>
-        <button className=''>Chat On Whatsapp</button>
+      <Link href="https://wa.me/6281234567890" target="_blank" className=' bg-[#25D366] text-sm lg:text-md text-white rounded-lg hover:bg-[#128C7E] transition-colors duration-300'>
+        <button className='px-2 py-1.5 lg:px-4 lg:py-2 '>Chat On Whatsapp</button>
       </Link>
       {/* Mobile Navbar */}
       <MobileNavbar />

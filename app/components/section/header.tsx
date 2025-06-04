@@ -9,7 +9,11 @@ const Header = () => {
       {/* <div className='absolute bottom-0 left-0 w-full h-full -z-10 bg-gradient-to-tr from-[#000000] to-transparent ' /> */}
       <div className=' flex flex-col py-3 gap-4 w-full lg:w-[50%] '>
         <h1 className='text-white text-4xl md:text-5xl lg:text-7xl leading-tight'>Transforming Ideas Into Impactful <span className='font-extrabold text-[#f7a619]'>Advertising</span> Solutions</h1>
-        <p className='text-white/80 text-md '>At APLUS ADVERTISING, we specialize in crafting innovative marketting strategies that resonate with your audience. </p>
+        <p className='text-white/80 text-md '>A Plus Advertising adalah perusahaan yang
+          bergerak di bidang periklanan dan promosi,
+          menyediakan berbagai layanan kreatif
+          untuk mendukung kebutuhan branding,
+          marketing, dan kampanye visual Anda. </p>
         <Button variant='outline' size="lg" className='bg-[#f7a619] text-black hover:bg-[#f7a619]/90 mt-4 w-fit outline-none border-none text-lg'>
           <Link href="https://wa.me/6281212345678" target='_blank'>About Us</Link>
         </Button>
