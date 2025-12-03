@@ -13,6 +13,8 @@ function formatCurrency(amount, currency = 'IDR') {
 
 // Removed generateMetadata to avoid metadata creation errors
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProductDetailPage({ params }) {
   const resolvedParams = params && typeof params.then === 'function' ? await params : (params || {})
   const slug = resolvedParams?.slug

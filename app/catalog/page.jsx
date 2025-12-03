@@ -23,6 +23,7 @@ export async function generateMetadata() {
 }
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
 
 export default async function CatalogPage() {
   const result = await listProducts()
