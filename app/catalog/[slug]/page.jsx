@@ -3,10 +3,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getProductBySlug } from '@/lib/catalog'
 
-export const runtime = 'nodejs'
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 function formatCurrency(amount, currency = 'IDR') {
   try {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount || 0)
@@ -15,96 +11,197 @@ function formatCurrency(amount, currency = 'IDR') {
   }
 }
 
-export async function generateMetadata({ params: paramsPromise }) {
-  const { slug } = await paramsPromise
-  if (!slug || typeof slug !== 'string') return {}
-  const { success, product } = await getProductBySlug(slug)
-  if (!success || !product) return { title: 'Produk Tidak Ditemukan', robots: { index: false, follow: false } }
-  const base = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
-  const title = product.title ? `${product.title}` : 'Detail Produk'
-  const description = product.description || `Detail produk ${product.title || ''} dari Aplus Advertising.`
-  const cover = (product.images && product.images[0]) || product.imageUrl || '/under.png'
-  return {
-    title,
-    description,
-    alternates: { canonical: `/catalog/${slug}` },
-    openGraph: {
-      title,
-      description,
-      url: new URL(`/catalog/${slug}`, base).toString(),
-      images: [{ url: cover, width: 1200, height: 630, alt: product.title }],
-      type: 'product',
-      locale: 'id_ID',
-    },
-    twitter: { card: 'summary_large_image', title, description, images: [cover] },
-  }
-}
+// Removed generateMetadata to avoid metadata creation errors
 
-export default async function ProductDetailPage({ params: paramsPromise }) {
-  const { slug } = await paramsPromise
-  if (!slug || typeof slug !== 'string') return notFound()
-
-  const { success, product } = await getProductBySlug(slug)
-  if (!success || !product) return notFound()
-
-  const cover = (product.images && product.images[0]) || product.imageUrl || '/under.png'
-
-  return (
-    <div className='w-full bg-white py-8 lg:py-12 relative overflow-hidden'>
-      <div className='w-full h-full flex flex-col gap-6 md:gap-10 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40'>
-        <div className='text-sm'>
-          <Link href='/' className='text-accent-foreground/70 hover:underline'>Home</Link>
-          <span className='mx-2'>/</span>
-          <Link href='/catalog' className='text-accent-foreground/70 hover:underline'>Catalog</Link>
-          <span className='mx-2'>/</span>
-          <span className='text-accent-foreground/90'>{product.title}</span>
-        </div>
-
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-          <div className='flex flex-col gap-3'>
-            <div className='w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden'>
-              <Image src={cover} alt={product.title} width={1200} height={900} className='w-full h-full object-cover' unoptimized />
-            </div>
-            <div className='flex gap-2 flex-wrap'>
-              {(product.images || []).map((img, i) => (
-                <div key={i} className='w-24 h-20 rounded overflow-hidden bg-gray-100'>
-                  <Image src={img} alt={`thumb-${i}`} width={200} height={150} className='w-full h-full object-cover' unoptimized />
-                </div>
-              ))}
-            </div>
+export default async function ProductDetailPage({ params }) {
+  const resolvedParams = params && typeof params.then === 'function' ? await params : (params || {})
+  const slug = resolvedParams?.slug
+  
+  if (!slug || typeof slug !== 'string') {
+    return (
+      <div className='w-full bg-white py-8 lg:py-12 relative overflow-hidden'>
+        <div className='w-full h-full flex flex-col gap-6 md:gap-10 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40'>
+          <div className='text-center py-20'>
+            <h1 className='text-3xl font-bold mb-4'>Halaman Tidak Ditemukan</h1>
+            <p className='text-gray-600 mb-6'>Halaman yang Anda cari tidak tersedia.</p>
+            <Link href='/catalog' className='inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#0E121D] text-[#0E121D] font-semibold hover:bg-[#f7a619] hover:border-[#f7a619] hover:shadow-lg hover:text-white transition'>
+              Kembali ke Katalog
+            </Link>
           </div>
+        </div>
+      </div>
+    )
+  }
 
-          <div className='flex flex-col gap-4'>
-            <div>
-              <h1 className='text-3xl md:text-4xl font-bold'>{product.title}</h1>
-              <p className='text-accent-foreground/80 capitalize'>{product.category}{product.place ? ` • ${product.place}` : ''}</p>
-              <p className='text-sm text-accent-foreground/70'>Tanggal: {product.date ? new Date(product.date).toLocaleDateString('id-ID') : '-'}</p>
-            </div>
-            <div className='text-2xl font-extrabold'>{formatCurrency(product.price, product.currency)}</div>
-            {product.description && (
-              <p className='text-accent-foreground/90'>{product.description}</p>
-            )}
-            {product.content && (
-              <div className='prose prose-sm max-w-none mt-2 text-accent-foreground/90 whitespace-pre-wrap'>
-                {product.content}
+  // Fetch product from database
+  const title = slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  const { success, product } = await getProductBySlug(slug)
+  if (!success || !product) {
+    return notFound()
+  }
+
+  const cover = (product.images && product.images[0]) || product.imageUrl || '/under.png'
+  const displayPrice = typeof product.price === 'number' && isFinite(product.price) 
+    ? formatCurrency(product.price, product.currency)
+    : 'Hubungi Kami'
+
+    return (
+      <div className='w-full bg-white py-8 lg:py-12 relative overflow-hidden' suppressHydrationWarning>
+        <div className='w-full h-full flex flex-col gap-6 md:gap-10 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40'>
+          {/* Breadcrumb */}
+          <nav className='text-sm' aria-label="Breadcrumb">
+            <ol className='flex items-center space-x-2'>
+              <li>
+                <Link href='/' className='text-accent-foreground/70 hover:underline'>
+                  Home
+                </Link>
+              </li>
+              <li className='text-accent-foreground/50'>/</li>
+              <li>
+                <Link href='/catalog' className='text-accent-foreground/70 hover:underline'>
+                  Catalog
+                </Link>
+              </li>
+              <li className='text-accent-foreground/50'>/</li>
+              <li className='text-accent-foreground/90' aria-current="page">
+                {product.title || 'Produk'}
+              </li>
+            </ol>
+          </nav>
+
+          {/* Product Details */}
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+            {/* Images Section */}
+            <div className='flex flex-col gap-3'>
+              <div className='w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden'>
+                <Image 
+                  src={cover} 
+                  alt={product.title || 'Product image'} 
+                  width={1200} 
+                  height={900} 
+                  className='w-full h-full object-cover' 
+                  unoptimized
+                  priority
+                />
               </div>
-            )}
-            <div className='flex flex-wrap gap-2'>
-              {(product.tags || []).map((t, i) => (
-                <span key={i} className='text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded'>#{t}</span>
-              ))}
+              {/* Thumbnail Gallery */}
+              {product.images && product.images.length > 1 && (
+                <div className='flex gap-2 flex-wrap'>
+                  {product.images.map((img, i) => (
+                    <div key={i} className='w-24 h-20 rounded overflow-hidden bg-gray-100 cursor-pointer hover:opacity-80 transition-opacity'>
+                      <Image 
+                        src={img} 
+                        alt={`${product.title} - image ${i + 1}`} 
+                        width={200} 
+                        height={150} 
+                        className='w-full h-full object-cover' 
+                        unoptimized 
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div className='flex gap-3 mt-4'>
-              <Link href={`https://wa.me/6281234567890?text=${encodeURIComponent('Halo, saya tertarik dengan ' + (product.title || 'produk') + ' (' + (product.slug || '') + ')')}`} target='_blank' className='inline-flex items-center justify-center px-4 py-2 rounded-md bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition'>
-                Tanya via WhatsApp
-              </Link>
-              <Link href='/catalog' className='inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#0E121D] text-[#0E121D] font-semibold hover:bg-[#f7a619] hover:border-[#f7a619] hover:shadow-lg hover:text-white transition'>
-                Kembali ke Katalog
-              </Link>
+
+            {/* Product Info Section */}
+            <div className='flex flex-col gap-4'>
+              <div>
+                <h1 className='text-3xl md:text-4xl font-bold mb-2'>
+                  {product.title || 'Produk Tanpa Nama'}
+                </h1>
+                {(product.category || product.place) && (
+                  <p className='text-accent-foreground/80 capitalize'>
+                    {product.category}
+                    {product.category && product.place ? ' • ' : ''}
+                    {product.place}
+                  </p>
+                )}
+                {product.date && (
+                  <p className='text-sm text-accent-foreground/70'>
+                    Tanggal: {(() => {
+                      try {
+                        const date = new Date(product.date)
+                        return date.toLocaleDateString('id-ID', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })
+                      } catch {
+                        return '-'
+                      }
+                    })()}
+                  </p>
+                )}
+              </div>
+              
+              {/* Price */}
+              <div className='text-2xl font-extrabold text-green-600'>
+                {displayPrice}
+              </div>
+              
+              {/* Description */}
+              {product.description && (
+                <div className='space-y-2'>
+                  <h3 className='font-semibold text-lg'>Deskripsi</h3>
+                  <p className='text-accent-foreground/90 leading-relaxed'>
+                    {product.description}
+                  </p>
+                </div>
+              )}
+              
+              {/* Content */}
+              {product.content && (
+                <div className='space-y-2'>
+                  <h3 className='font-semibold text-lg'>Detail</h3>
+                  <div className='prose prose-sm max-w-none text-accent-foreground/90 whitespace-pre-wrap leading-relaxed'>
+                    {product.content}
+                  </div>
+                </div>
+              )}
+              
+              {/* Tags */}
+              {product.tags && product.tags.length > 0 && (
+                <div className='space-y-2'>
+                  <h3 className='font-semibold text-sm'>Tags</h3>
+                  <div className='flex flex-wrap gap-2'>
+                    {product.tags.map((tag, i) => (
+                      <span key={i} className='text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full'>
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Action Buttons */}
+              <div className='flex flex-col sm:flex-row gap-3 mt-6'>
+                <Link 
+                  href={`https://wa.me/6281234567890?text=${encodeURIComponent(
+                    `Halo, saya tertarik dengan ${product.title || 'produk ini'} (${product.slug || slug}). Bisa minta info lebih lanjut?`
+                  )}`} 
+                  target='_blank' 
+                  rel='noopener noreferrer'
+                  className='inline-flex items-center justify-center px-6 py-3 rounded-md bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition-colors focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2'
+                >
+                  💬 Tanya via WhatsApp
+                </Link>
+                <Link 
+                  href='/catalog' 
+                  className='inline-flex items-center justify-center px-6 py-3 rounded-md border border-[#0E121D] text-[#0E121D] font-semibold hover:bg-[#f7a619] hover:border-[#f7a619] hover:shadow-lg hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-[#f7a619] focus:ring-offset-2'
+                >
+                  ← Kembali ke Katalog
+                </Link>
+              </div>
+              
+              {/* Availability Status */}
+              <div className='text-sm text-accent-foreground/70 mt-2'>
+                Status: <span className={`font-medium ${typeof product.available === 'boolean' && product.available === false ? 'text-red-600' : 'text-green-600'}`}>
+                  {typeof product.available === 'boolean' && product.available === false ? 'Tidak Tersedia' : 'Tersedia'}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
 }
