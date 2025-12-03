@@ -1,52 +1,78 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Mail, Map, Phone } from 'lucide-react'
 
-// import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { motion } from "framer-motion"
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 
-
 const GetInTouch = () => {
+  const [submitStatus, setSubmitStatus] = useState({ type: null, message: '' })
 
-  // const { register, handleSubmit, setValue, reset, formState: { errors, isSubmitting } } = useForm<{
-  //   name: string;
-  //   email: string;
-  //   message: string;
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  })
 
-  // }>({
-  //   defaultValues: {
-  //     name: "",
-  //     email: "",
-  //     message: "",
-  //   },
-  // })
+  const onSubmit = async (data) => {
+    try {
+      setSubmitStatus({ type: null, message: '' })
+      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
 
-  // const onSubmit = async (data: { name: string; email: string; message: string; }) => {
+      // Check if response is ok and content-type is JSON
+      const contentType = response.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        // Try to get the text response to see what we got
+        const textResponse = await response.text()
+        console.error('Non-JSON response received:', {
+          status: response.status,
+          statusText: response.statusText,
+          contentType,
+          body: textResponse.substring(0, 500) // First 500 chars
+        })
+        throw new Error(`Server returned non-JSON response (${response.status} ${response.statusText})`)
+      }
 
-  //   try {
-  //     await CreateSubscriptionAction(null, {
-  //       ...data
-  //     })
-  //     reset()
-  //     toast.success("Message sent successfully", {
-  //       duration: 5000,
-  //       icon: "🚀",
-  //       style: {
-  //         borderRadius: "10px",
-  //         background: "#333",
-  //         color: "#fff",
-  //       },
+      const result = await response.json()
 
-  //     })
-  //   } catch (error) {
-  //     console.error("🚨 Error:", error);
-  //     toast.error("Failed to send message")
-  //   }
-  // }
+      if (result.success) {
+        setSubmitStatus({ 
+          type: 'success', 
+          message: 'Message sent successfully! We will get back to you soon.' 
+        })
+        reset()
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: '' })
+        }, 5000)
+      } else {
+        setSubmitStatus({ 
+          type: 'error', 
+          message: result.error || 'Failed to send message. Please try again.' 
+        })
+      }
+    } catch (error) {
+      console.error("🚨 Error:", error)
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again.' 
+      })
+    }
+  }
 
   return (
     <motion.div
@@ -88,7 +114,18 @@ const GetInTouch = () => {
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="text-xl font-bold">Send Me a Message</h3>
-              <form className="grid gap-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+                {submitStatus.type && (
+                  <div
+                    className={`p-3 rounded-md text-sm ${
+                      submitStatus.type === 'success'
+                        ? 'bg-green-100 text-green-800 border border-green-300'
+                        : 'bg-red-100 text-red-800 border border-red-300'
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </div>
+                )}
                 <div className="grid gap-2">
                   <Label
                     htmlFor="name"
@@ -98,11 +135,11 @@ const GetInTouch = () => {
                   </Label>
                   <input
                     id="name"
-                    // {...register("name", { required: true })}
+                    {...register("name", { required: "Name is required" })}
                     className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Your name"
                   />
-                  {/* {errors.name && <span className="text-red-500 text-left text-sm">*This field is required</span>} */}
+                  {errors.name && <span className="text-red-500 text-left text-sm">*{errors.name.message}</span>}
                 </div>
                 <div className="grid gap-2">
                   <Label
@@ -114,11 +151,17 @@ const GetInTouch = () => {
                   <input
                     id="email"
                     type="email"
-                    // {...register("email", { required: true })}
+                    {...register("email", { 
+                      required: "Email is required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address"
+                      }
+                    })}
                     className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none  focus-visible:ring-0  disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Your email"
                   />
-                  {/* {errors.email && <span className="text-red-500 text-left text-sm">*This field is required</span>} */}
+                  {errors.email && <span className="text-red-500 text-left text-sm">*{errors.email.message}</span>}
                 </div>
                 <div className="grid gap-2">
                   <Label
@@ -129,14 +172,15 @@ const GetInTouch = () => {
                   </Label>
                   <textarea
                     id="message"
-                    // {...register("message", { required: true })}
+                    {...register("message", { required: "Message is required" })}
                     className="flex min-h-[120px] w-full rounded-md border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0  disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Your message"
                   />
-                  {/* {errors.message && <span className="text-red-500 text-left text-sm">*This field is required</span>} */}
+                  {errors.message && <span className="text-red-500 text-left text-sm">*{errors.message.message}</span>}
                 </div>
-                {/* <Button type="submit">{isSubmitting ? "Submitting..." : "Submit"}</Button> */}
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </Button>
               </form>
             </div>
           </div>

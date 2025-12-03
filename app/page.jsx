@@ -1,3 +1,9 @@
+export const metadata = {
+  title: 'Beranda',
+  description:
+    'Aplus Advertising: Solusi periklanan dan komunikasi visual. Neon box, signage, digital printing, dan layanan kreatif untuk kebutuhan brand Anda.',
+  alternates: { canonical: '/' },
+}
 
 import AboutUs from "./components/section/aboutUs";
 import Contact from "./components/section/contact";
