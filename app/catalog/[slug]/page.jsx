@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getProductBySlug } from '@/lib/catalog'
 
+export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
@@ -62,12 +63,12 @@ export default async function ProductDetailPage({ params: paramsPromise }) {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
           <div className='flex flex-col gap-3'>
             <div className='w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden'>
-              <Image src={cover} alt={product.title} width={1200} height={900} className='w-full h-full object-cover' />
+              <Image src={cover} alt={product.title} width={1200} height={900} className='w-full h-full object-cover' unoptimized />
             </div>
             <div className='flex gap-2 flex-wrap'>
               {(product.images || []).map((img, i) => (
                 <div key={i} className='w-24 h-20 rounded overflow-hidden bg-gray-100'>
-                  <Image src={img} alt={`thumb-${i}`} width={200} height={150} className='w-full h-full object-cover' />
+                  <Image src={img} alt={`thumb-${i}`} width={200} height={150} className='w-full h-full object-cover' unoptimized />
                 </div>
               ))}
             </div>

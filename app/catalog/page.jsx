@@ -22,6 +22,8 @@ export async function generateMetadata() {
   }
 }
 
+export const runtime = 'nodejs'
+
 export default async function CatalogPage() {
   const result = await listProducts()
   const products = result.success && Array.isArray(result.products) ? result.products : []
@@ -53,6 +55,7 @@ export default async function CatalogPage() {
                     width={600}
                     height={450}
                     className='w-full h-full object-cover'
+                    unoptimized
                   />
                 </div>
                 <div className='flex items-start justify-between gap-3'>
