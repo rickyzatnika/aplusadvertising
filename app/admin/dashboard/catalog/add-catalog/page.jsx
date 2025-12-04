@@ -46,6 +46,31 @@ export default function AdminAddCatalogPage() {
         setUploading(false)
         return
       }
+
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+      const unsignedPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+
+      // Prefer direct-to-Cloudinary (menghindari 413 pada server Anda)
+      if (cloudName && unsignedPreset) {
+        const uploadedUrls = []
+        for (const f of files) {
+          const form = new FormData()
+          form.append('file', f)
+          form.append('upload_preset', unsignedPreset)
+          const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: 'POST', body: form })
+          const data = await res.json().catch(() => ({}))
+          if (!res.ok || !data.secure_url) {
+            throw new Error(data?.error?.message || 'Upload ke Cloudinary gagal')
+          }
+          uploadedUrls.push(data.secure_url)
+        }
+        setUploaded((prev) => [...prev, ...uploadedUrls])
+        setFiles([])
+        setSuccessMsg('Upload berhasil (direct Cloudinary)')
+        return
+      }
+
+      // Fallback: via API server (bisa terkena 413 jika file besar atau banyak)
       const form = new FormData()
       for (const f of files) form.append('files', f)
       const res = await fetch('/api/upload', { method: 'POST', body: form })
