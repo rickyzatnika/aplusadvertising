@@ -1,4 +1,5 @@
 import React from 'react'
+import GetInTouch from '@/app/components/section/contact'
 
 export const metadata = {
   title: 'Kontak',
@@ -7,12 +8,10 @@ export const metadata = {
   alternates: { canonical: '/contact' },
 }
 
-const Contact = () => {
-    return (
-        <div>
-            <h1>Contact</h1>
-        </div>
-    )
+export default function ContactPage() {
+  return (
+    <div className='bg-[#ffbd2d]'>
+      <GetInTouch />
+    </div>
+  )
 }
-
-export default Contact

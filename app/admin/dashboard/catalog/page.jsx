@@ -174,6 +174,7 @@ export default function AdminCatalogTablePage() {
       <div className='flex items-center justify-between mb-4'>
         <h1 className='text-2xl font-bold'>Catalog</h1>
         <div className='flex gap-2'>
+          <a href='/admin/dashboard/catalog/add-catalog' className='px-3 py-2 rounded-md border bg-black text-white hover:bg-white hover:text-black'>Tambah Produk</a>
           <button type='button' onClick={() => openDeleteModal(selectedIds)} disabled={selectedIds.length === 0} className='px-3 py-2 rounded-md border border-red-600 text-red-600 hover:bg-red-600 hover:text-white disabled:opacity-50'>Delete Selected</button>
           <button type='button' onClick={fetchRows} className='px-3 py-2 rounded-md border'>Refresh</button>
         </div>

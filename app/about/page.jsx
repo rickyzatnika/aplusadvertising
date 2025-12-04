@@ -1,4 +1,5 @@
 import React from 'react'
+import AboutSection from '@/app/components/section/aboutUs'
 
 export const metadata = {
   title: 'Tentang Kami',
@@ -7,12 +8,10 @@ export const metadata = {
   alternates: { canonical: '/about' },
 }
 
-const AboutUs = () => {
-    return (
-        <div>
-            <h1>About Us</h1>
-        </div>
-    )
+export default function AboutPage() {
+  return (
+    <div className='bg-[#0E121D]'>
+      <AboutSection />
+    </div>
+  )
 }
-
-export default AboutUs
