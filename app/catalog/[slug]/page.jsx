@@ -178,7 +178,7 @@ export default async function ProductDetailPage({ params }) {
               {/* Action Buttons */}
               <div className='flex flex-col sm:flex-row gap-3 mt-6'>
                 <Link 
-                  href={`https://wa.me/6281234567890?text=${encodeURIComponent(
+                  href={`https://wa.me/6281214707415?text=${encodeURIComponent(
                     `Halo, saya tertarik dengan ${product.title || 'produk ini'} (${product.slug || slug}). Bisa minta info lebih lanjut?`
                   )}`} 
                   target='_blank' 

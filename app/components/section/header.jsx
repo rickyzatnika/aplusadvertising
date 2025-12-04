@@ -15,7 +15,7 @@ const Header = () => {
           untuk mendukung kebutuhan branding,
           marketing, dan kampanye visual Anda. </p>
         <Button variant='outline' size="lg" className='bg-[#f7a619] text-black hover:bg-[#f7a619]/90 mt-4 w-fit outline-none border-none text-lg'>
-          <Link href="https://wa.me/6281212345678" target='_blank'>About Us</Link>
+          <Link href="https://wa.me/6281214707415" target='_blank'>About Us</Link>
         </Button>
       </div>
       <div className='w-full lg:w-[1200px] xl:w-[800px] h-auto flex items-center justify-center'>

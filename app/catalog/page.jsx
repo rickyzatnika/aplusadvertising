@@ -85,7 +85,7 @@ export default async function CatalogPage() {
                   <Link href={`/catalog/${p.slug}`} className='inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#0E121D] text-[#0E121D] font-semibold hover:bg-[#f7a619] hover:border-[#f7a619] hover:shadow-lg hover:text-white transition'>
                     Lihat Detail
                   </Link>
-                  <Link href={`https://wa.me/6281234567890?text=${encodeURIComponent('Halo, saya tertarik dengan ' + (p.title || 'produk') + ' (' + (p.slug || '') + ')')}`} target='_blank' className='inline-flex items-center justify-center px-4 py-2 rounded-md bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition'>
+                  <Link href={`https://wa.me/6281214707415?text=${encodeURIComponent('Halo, saya tertarik dengan ' + (p.title || 'produk') + ' (' + (p.slug || '') + ')')}`} target='_blank' className='inline-flex items-center justify-center px-4 py-2 rounded-md bg-[#25D366] text-white font-semibold hover:bg-[#128C7E] transition'>
                     Tanya via WhatsApp
                   </Link>
                 </div>
