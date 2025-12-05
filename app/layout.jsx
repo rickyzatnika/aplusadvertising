@@ -84,17 +84,26 @@ export const metadata = {
   },
 };
 
+import LenisProvider from './components/providers/LenisProvider'
+import SessionProvider from '@/app/components/providers/SessionProvider'
+import UserChangeNotification from './components/UserChangeNotification'
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
-      <body
-        className={`${sen.variable}  antialiased`}
-      >
-        <Navbar />
-        <div className="">
-          {children}
-        </div>
-        <Footer />
+    <html lang="id" suppressHydrationWarning >
+      <body className={`${sen.variable}  antialiased`}>
+        <LenisProvider>
+          <SessionProvider>
+            <UserChangeNotification />
+            <Navbar />
+            {/* Spacer to offset fixed navbar height */}
+            <div className='h-20 lg:h-24' aria-hidden />
+            <div className="">
+              {children}
+            </div>
+            <Footer />
+          </SessionProvider>
+        </LenisProvider>
       </body>
     </html>
   );

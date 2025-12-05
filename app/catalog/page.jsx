@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { listProducts } from '@/lib/catalog'
 
 export async function generateMetadata() {
-  const base = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+  const base = new URL(process.env.NEXT_PUBLIC_API || 'http://localhost:3001')
   const title = 'Katalog Produk'
   const description = 'Jelajahi katalog produk Aplus Advertising: signage, neon box, digital printing, dan layanan kreatif lainnya.'
   return {

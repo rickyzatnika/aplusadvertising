@@ -79,9 +79,9 @@ const GetInTouch = () => {
       initial={{ y: '100%' }}
       animate={{ y: 0 }}
       transition={{
-        duration: 1,
-        damping: 50,
-        delay: 0.2,
+        duration: 1.2,
+        damping: 60,
+        delay: 0.15,
       }} id="contact" className="w-full  bg-[#ffbd2d]  py-8 md:py-16 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40">
       <div className="">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">

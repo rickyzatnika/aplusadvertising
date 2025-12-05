@@ -1,12 +1,21 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const Footer = () => {
   return (
-    <div className='bg-white w-full h-full py-8 px-4'>
+    <footer className='bg-white w-full h-full py-8 px-4'>
       <div className='w-full flex items-center justify-center '>
-        <div className='border-b-2 border-accent-foreground w-full px-4 flex flex-col lg:flex-row items-center justify-center  gap-12 py-8 lg:gap-0'>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className='border-b-2 border-accent-foreground w-full px-4 flex flex-col lg:flex-row items-center justify-center  gap-12 py-8 lg:gap-0'
+        >
           <div className='w-fit lg:w-full'>
             <Image src="/logo.png" alt="logo-aplus-adv" priority={true} width={150} height={150} />
           </div>
@@ -28,31 +37,35 @@ const Footer = () => {
             </li>
           </ul>
           <div className='w-full flex items-center justify-center lg:justify-end gap-4'>
-            <Link href="https://www.instagram.com/aplusadvertising/" target="_blank">
+            <motion.a href="https://www.instagram.com/aplusadvertising/" target="_blank" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Image src="/instagram.png" alt="instagram" priority={true} width={30} height={30} />
-            </Link>
-            <Link href="https://www.facebook.com/aplusadvertising/" target="_blank">
+            </motion.a>
+            <motion.a href="https://www.facebook.com/aplusadvertising/" target="_blank" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Image src="/facebook.png" alt="facebook" priority={true} width={30} height={30} />
-            </Link>
-            <Link href="https://www.linkedin.com/company/aplusadvertising/" target="_blank">
+            </motion.a>
+            <motion.a href="https://www.linkedin.com/company/aplusadvertising/" target="_blank" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Image src="/tiktok.png" alt="linkedin" priority={true} width={30} height={30} />
-            </Link>
-            <Link href="https://www.youtube.com/company/aplusadvertising/" target="_blank">
+            </motion.a>
+            <motion.a href="https://www.youtube.com/company/aplusadvertising/" target="_blank" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Image src="/youtube.png" alt="linkedin" priority={true} width={30} height={30} />
-            </Link>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
 
       </div>
-      <div className='w-full bg-white py-4 text-center flex items-center justify-center text-sm font-semibold flex-col lg:flex-row gap-8 '>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className='w-full bg-white py-4 text-center flex items-center justify-center text-sm font-semibold flex-col lg:flex-row gap-8 '
+      >
         <p>© Copyright 2025 - APLUS ADVERTISING. All Right Reserved </p>
         <Link href="/privacy-policy" className='text-[#0E121D] hover:text-[#f7a619]'>Privacy Policy</Link>
         <Link href="/terms-of-service" className='text-[#0E121D] hover:text-[#f7a619]'>Terms of Service</Link>
+      </motion.div>
 
-
-      </div>
-
-    </div>
+    </footer>
   )
 }
 

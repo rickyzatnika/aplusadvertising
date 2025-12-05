@@ -11,7 +11,7 @@ const MobileNavbar = () => {
     <div className='lg:hidden flex items-center justify-center'>
       <Sheet>
         <SheetTrigger asChild>
-          <MenuIcon size={32} className='text-orange-300 font-bold' />
+          <MenuIcon size={36} className='text-[#141414] font-extrabold' />
         </SheetTrigger>
         <SheetContent className='bg-[#0a0d06] border-none text-white'>
           <SheetHeader className='hidden'>
