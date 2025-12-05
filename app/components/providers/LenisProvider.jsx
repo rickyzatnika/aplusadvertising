@@ -8,29 +8,54 @@ export default function LenisProvider({ children }) {
   const rafRef = useRef(null)
 
   useEffect(() => {
-    // Respect reduced motion
-    const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isClient = typeof window !== 'undefined'
+    const prefersReduced = isClient && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isTouch = isClient && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    const lowCore = isClient && (navigator.hardwareConcurrency || 4) <= 4
+
+    const disableOnMobile = isTouch && (prefersReduced || lowCore)
 
     const lenis = new Lenis({
-      duration: prefersReduced ? 0.6 : 1.0, // overall smoothing
-      easing: (t) => 1 - Math.pow(1 - t, 2), // easeOutQuad
-      smoothWheel: !prefersReduced,
-      smoothTouch: !prefersReduced,
-      syncTouch: true,
-      touchMultiplier: 1.2,
+      duration: disableOnMobile ? 0.4 : prefersReduced ? 0.5 : isTouch ? 0.7 : 1.0,
+      easing: (t) => (disableOnMobile ? t : t), // keep linear to minimize CPU
+      smoothWheel: !prefersReduced && !isTouch, // wheel smooth on desktop only
+      smoothTouch: !prefersReduced && isTouch && !disableOnMobile,  // touch smooth only on capable devices
+      syncTouch: !lowCore && !prefersReduced && !disableOnMobile,
+      touchMultiplier: isTouch ? 1.0 : 1.2,
     })
 
     lenisRef.current = lenis
 
-    const raf = (time) => {
-      lenis.raf(time)
+    let running = false
+    const start = () => {
+      if (running) return
+      running = true
+      const raf = (time) => {
+        if (!running) return
+        lenis.raf(time)
+        rafRef.current = requestAnimationFrame(raf)
+      }
       rafRef.current = requestAnimationFrame(raf)
     }
+    const stop = () => {
+      running = false
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
 
-    rafRef.current = requestAnimationFrame(raf)
+    // Start only when visible and not disabled on mobile
+    if (!prefersReduced && !disableOnMobile && (!isClient || document.visibilityState === 'visible')) {
+      start()
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') start()
+      else stop()
+    }
+    isClient && document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      isClient && document.removeEventListener('visibilitychange', onVisibility)
+      stop()
       lenis.destroy()
     }
   }, [])

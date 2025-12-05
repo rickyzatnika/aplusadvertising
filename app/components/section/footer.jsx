@@ -14,7 +14,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className='border-b-2 border-accent-foreground w-full px-4 flex flex-col lg:flex-row items-center justify-center  gap-12 py-8 lg:gap-0'
+          className='border-b-2 border-accent-foreground w-full max-w-7xl px-4 md:px-14 lg:px-20 flex flex-col lg:flex-row items-center justify-center  gap-12 py-8 lg:gap-0'
         >
           <div className='w-fit lg:w-full'>
             <Image src="/logo.png" alt="logo-aplus-adv" priority={true} width={150} height={150} />
@@ -58,11 +58,13 @@ const Footer = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className='w-full bg-white py-4 text-center flex items-center justify-center text-sm font-semibold flex-col lg:flex-row gap-8 '
+        className='w-full bg-white py-4 text-center flex items-center justify-center text-sm font-semibold flex-col gap-8 '
       >
         <p>© Copyright 2025 - APLUS ADVERTISING. All Right Reserved </p>
-        <Link href="/privacy-policy" className='text-[#0E121D] hover:text-[#f7a619]'>Privacy Policy</Link>
+        <div className='flex items-center justify-center gap-4'>
+          <Link href="/privacy-policy" className='text-[#0E121D] hover:text-[#f7a619]'>Privacy Policy</Link>
         <Link href="/terms-of-service" className='text-[#0E121D] hover:text-[#f7a619]'>Terms of Service</Link>
+        </div>
       </motion.div>
 
     </footer>

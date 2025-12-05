@@ -23,9 +23,9 @@ const AboutUs = () => {
       <motion.div aria-hidden className=' absolute left-0 top-0 -z-10  origin-top-left opacity-20' style={{ y: yAccent }}>
         <Image src="/kotak.png" alt="about-us" priority={true} width={300} height={100} />
       </motion.div>
-      <div className='w-full h-full flex flex-col items-center justify-center gap-4 py-8 md:py-16 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40 relative'>
+      <div className='w-full h-full flex flex-col items-start justify-center gap-4 py-8 md:py-16 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40 relative'>
         <motion.div className='w-full flex flex-col md:flex-row gap-0 lg:gap-8 item-center md:item-start justify-between' initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.9 }}>
-          <div className=' w-full h-screen flex flex-col items-start justify-evenly'>
+          <div className=' w-full h-screen md:h-full flex flex-col items-start justify-evenly'>
             <div className='flex flex-col gap-2'>
               <p className='text-white text-md font-bold'>Innovate</p>
               <h1 className='text-white text-4xl md:text-5xl lg:text-7xl font-semibold  relative z-10 mb-3'>About Us </h1>
@@ -50,7 +50,7 @@ const AboutUs = () => {
                 menjadi pesan visual yang kuat dan berkesan.
               </p>
             </div>
-            <div className='flex items-center gap-8 '>
+            <div className='flex items-center gap-8 pt-6 '>
               <Link href="/contact">
                 <Button className='bg-[#ffbd2d] text-[#0E121D] uppercase cursor-pointer hover:bg-[#faa51b]/50 hover:text-black'>Contact Us</Button>
               </Link>

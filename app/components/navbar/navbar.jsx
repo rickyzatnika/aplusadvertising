@@ -19,32 +19,51 @@ const Navbar = () => {
   ]
 
   const [hidden, setHidden] = useState(false)
+  const hiddenRef = useRef(false)
   const lastYRef = useRef(0)
   const tickingRef = useRef(false)
+  const lastRunRef = useRef(0)
   const pathname = usePathname()
+  const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  const lowCore = typeof window !== 'undefined' && (navigator.hardwareConcurrency || 4) <= 4
+
+  // Keep a ref in sync with current hidden state to avoid stale closure
+  useEffect(() => {
+    hiddenRef.current = hidden
+  }, [hidden])
 
   const isDashboard = pathname?.startsWith('/admin')
 
   useEffect(() => {
     lastYRef.current = window.scrollY
     const onScroll = () => {
+      const now = performance.now()
+      const minInterval = (isTouch || lowCore) ? 60 : 16 // ~16ms desktop, ~60ms mobile/low-end
+      if (now - lastRunRef.current < minInterval) return
+      lastRunRef.current = now
+
       const update = () => {
         const y = window.scrollY
         const lastY = lastYRef.current
         const delta = y - lastY
 
         // Always show near top
+        let nextHidden = hiddenRef.current
         if (y < 10) {
-          setHidden(false)
+          nextHidden = false
         } else {
-          const threshold = 4
+          const threshold = (isTouch || lowCore) ? 8 : 4
           if (delta > threshold) {
-            // scrolling down
-            setHidden(true)
+            // scrolling down -> hide
+            nextHidden = true
           } else if (delta < -threshold) {
-            // scrolling up
-            setHidden(false)
+            // scrolling up -> show
+            nextHidden = false
           }
+        }
+        if (nextHidden !== hiddenRef.current) {
+          hiddenRef.current = nextHidden
+          setHidden(nextHidden)
         }
         lastYRef.current = y
         tickingRef.current = false
@@ -66,7 +85,7 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: hidden ? -80 : 0, opacity: hidden ? 0 : 1 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
+        transition={{ duration: (isTouch || lowCore) ? 0.2 : 0.35, ease: 'easeOut' }}
         className={`${isDashboard ? 'bg-yellow-400' : 'bg-white'} fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between h-20 lg:h-24 px-4 md:px-14 lg:px-24 xl:px-32 2xl:px-40  backdrop-blur  shadow-sm`}
       >
         <Link href="/">

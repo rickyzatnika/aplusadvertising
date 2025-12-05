@@ -3,6 +3,9 @@ import { Sen } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/section/footer";
 import Navbar from "./components/navbar/navbar";
+import dynamic from 'next/dynamic'
+
+const WhatsappSlot = dynamic(() => import('./components/WhatsappButton'))
 
 const sen = Sen({
   variable: "--font-sen",
@@ -89,6 +92,7 @@ import SessionProvider from '@/app/components/providers/SessionProvider'
 import UserChangeNotification from './components/UserChangeNotification'
 
 export default function RootLayout({ children }) {
+  const isAdmin = typeof window !== 'undefined' ? window.location.pathname.startsWith('/admin') : false
   return (
     <html lang="id" suppressHydrationWarning >
       <body className={`${sen.variable}  antialiased`}>
@@ -102,6 +106,8 @@ export default function RootLayout({ children }) {
               {children}
             </div>
             <Footer />
+            {/* Whatsapp button hidden on admin pages */}
+            {!isAdmin && <WhatsappSlot />}
           </SessionProvider>
         </LenisProvider>
       </body>

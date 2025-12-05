@@ -36,7 +36,7 @@ const Header = () => {
         </p>
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
           <Button variant='outline' size="lg" className='bg-[#f7a619] text-black hover:bg-[#f7a619]/90 mt-4 w-fit outline-none border-none text-lg'>
-            <Link href="https://wa.me/6281214707415" target='_blank'>About Us</Link>
+            <Link href="/about">About Us</Link>
           </Button>
         </motion.div>
       </motion.div>
