@@ -43,5 +43,3 @@ next-env.d.ts
 
 /lib/generated/prisma
 
-# acli
-/acli.exe
