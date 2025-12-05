@@ -124,7 +124,7 @@ export default function AdminAddCatalogPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/catalog`, {
+      const res = await fetch(`/api/catalog`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
