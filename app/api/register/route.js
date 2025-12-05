@@ -5,6 +5,7 @@ import { User } from '@/lib/models/User'
 
 export async function POST(req) {
   try {
+    await getDb()
     const body = await req.json()
     const { name, email, password, role } = body || {}
 

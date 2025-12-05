@@ -92,8 +92,8 @@ const Navbar = () => {
             Loading...
           </div>
         ) : isAuthenticated ? (
-          <div className='hidden md:flex items-center gap-3'>
-            <span className='text-sm text-gray-700'>
+          <div className='hidden md:flex items-center gap-3 antialiased'>
+            <span className='text-sm text-gray-700 capitalize'>
               Hi, {user?.name || 'User'}
             </span>
             <motion.button

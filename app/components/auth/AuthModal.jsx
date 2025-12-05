@@ -54,7 +54,7 @@ export default function AuthModal({ open, onClose }) {
     const email = form.get('email')
     const password = form.get('password')
     try {
-      const resp = await fetch('/api/register', {
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),

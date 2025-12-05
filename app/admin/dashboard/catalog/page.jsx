@@ -46,7 +46,7 @@ export default function AdminCatalogTablePage() {
     try {
       setLoading(true)
       setError('')
-      const res = await fetch('/api/catalog')
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API}/api/catalog`)
       const data = await res.json().catch(() => ({}))
       if (!res.ok || !data.success) throw new Error(data?.error || 'Gagal memuat data')
       const mapped = (data.products || []).map((p) => ({

@@ -2,9 +2,13 @@ import { NextResponse } from 'next/server'
 import { compare } from 'bcryptjs'
 import { signJwtToken } from '@/lib/jwt'
 import { User } from '@/lib/models/User'
+import { getDb } from '@/lib/mongodb'
 
 export async function POST(request) {
   try {
+
+    await getDb()
+
     const { username, password } = await request.json()
 
     if (!username || !password) {
