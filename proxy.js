@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { verifyJwtTokenEdge } from './lib/jwt-edge'
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname } = request.nextUrl
   
   // Only protect admin routes
