@@ -102,7 +102,7 @@ const GetInTouch = () => {
                 <div>
                   <p className="text-sm text-gray-400">Alamat</p>
                   <p className="text-white font-medium">
-                    Jl. Sariwangi Selatan No.165, Cibabat, Cimahi Utara, Bandung Barat, 40559
+                    <Link  href="https://maps.app.goo.gl/EyiVqEMhqEEhEJCo7" target="_blank">Jl. Raya Pd. Gede No.4, RT.4/RW.8, Lubang Buaya, Kota, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13810Jl. Sariwangi Selatan No.165, Cibabat, Cimahi Utara, Bandung Barat, 40559</Link>
                   </p>
                 </div>
               </div>

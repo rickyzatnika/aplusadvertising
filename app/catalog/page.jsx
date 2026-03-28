@@ -55,8 +55,8 @@ export default async function CatalogPage() {
                     alt={p.title || 'item'}
                     width={600}
                     height={450}
-                    className='w-full h-full object-cover'
-                    unoptimized
+                    className='w-full h-full object-contain'
+                    
                   />
                 </div>
                 <div className='flex items-start justify-between gap-3'>

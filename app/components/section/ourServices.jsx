@@ -38,17 +38,18 @@ const OurServices = () => {
         <motion.div className='w-full flex flex-col md:flex-row gap-8 item-center md:item-start justify-between' variants={containerVariants} initial='hidden' whileInView='show' viewport={{ once: true, amount: 0.4 }}>
           <div className=' w-full '>
             <p className='text-md font-bold'>Innovate</p>
-            <h1 className='text-4xl md:text-5xl lg:text-7xl font-semibold  relative z-10'>Our <span className='font-extrabold text-[#f7a619]'>Services </span></h1>
+            <h1 className='text-4xl md:text-5xl lg:text-7xl font-semibold  relative z-10'>Produk <span className='font-extrabold text-[#f7a619]'>dan </span>Layanan</h1>
           </div>
 
-          <p className='text-lg text-accent-foreground/80 font-semibold leading-relaxed w-full md:Lw-[70%] ml-auto '>Kami menyediakan layanan jasa print 3D
-            profesional dengan teknologi mutakhir dan
-            hasil berkualitas tinggi. Baik untuk
-            kebutuhan prototyping, produksi custom,
-            edukasi, hingga proyek kreatif, layanan kami
-            siap membantu mewujudkan ide Anda
-            menjadi kenyataan.</p>
+          <div className='text-lg text-accent-foreground/80  leading-relaxed w-full md:Lw-[70%] ml-auto '>
+            <h3 className='pb-2'>Kami bekerja dengan :</h3>
+            <div className='flex flex-col gap-1'>
+              <p>UMKM yang ingin brand-nya terlihat lebih profesional.</p>
 
+              <p> Event organizer, komunitas, dan penyelenggara acara.</p>
+
+              <p> Bisnis & perusahaan yang butuh produksi branding berkualitas</p></div>
+          </div>
         </motion.div>
         <motion.div className='w-full flex flex-col lg:flex-row gap-8 items-center justify-between py-12 ' variants={cardsVariants} initial='hidden' whileInView='show' viewport={{ once: true, amount: 0.35 }}>
           {

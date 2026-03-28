@@ -81,8 +81,7 @@ export default async function ProductDetailPage({ params }) {
                   alt={product.title || 'Product image'} 
                   width={1200} 
                   height={900} 
-                  className='w-full h-full object-cover' 
-                  unoptimized
+                  className='w-full h-full object-contain' 
                   priority
                 />
               </div>
